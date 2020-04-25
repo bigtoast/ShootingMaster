@@ -53,7 +53,8 @@ class _MyHomePageState extends State<MyHomePage> {
       // so that the display can reflect the updated values. If we changed
       // _counter without calling setState(), then the build method would not be
       // called again, and so nothing would appear to happen.
-      _counter++;
+      //_counter++;
+      _counter = _counter + 99;
     });
   }
 
@@ -92,7 +93,7 @@ class _MyHomePageState extends State<MyHomePage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Text(
-              'Hi Jason, whats up:',
+              'Hi Jason, you are the best!!! :',
             ),
             Text(
               '$_counter',

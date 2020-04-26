@@ -1,21 +1,79 @@
+import 'dart:developer';
+import 'dart:ui' as ui;
+
+import 'package:flame/flame.dart';
+import 'package:flame_splash_screen/flame_splash_screen.dart';
 import 'package:flutter/material.dart';
 
-void main() => runApp(MyApp());
+import 'game.dart';
 
-class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
+void main() {
+  runApp(MaterialApp(
+    title: 'Shooting Master',
+    color: Colors.purple,
+    debugShowCheckedModeBanner: false,
+    home: Scaffold(
+      body: ShootingMasterGameWrapper(),
+    )
+  ));
+  Flame.util.fullScreen();
+}
+
+class ShootingMasterGameWrapper extends StatefulWidget {
+  @override
+  _ShootingMasterGameWrapperState createState() => _ShootingMasterGameWrapperState();
+}
+
+class _ShootingMasterGameWrapperState extends State<ShootingMasterGameWrapper> {
+  bool splashGone = false;
+  ShootingMasterGame game;
+
+  @override
+  void initState(){
+    super.initState();
+    startGame();
+  }
+
+  void startGame() {
+    Flame.images.loadAll(["basketball.png"]).then( (image) => {
+        setState(() {
+          log("images loaded. starting game");
+          game = new ShootingMasterGame(image[0]);
+        })
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Shooting Master',
-      theme: ThemeData(
-        // This is the theme of your application.
-        primarySwatch: Colors.blue,
-      ),
-      home: MyHomePage(title: 'Future home of Shooting Master!'),
+    return splashGone
+        ? _buildGame(context)
+        : FlameSplashScreen(
+      theme: FlameSplashTheme.white,
+      onFinish: (context) {
+        setState(() {
+          log("setting splash gone.");
+          splashGone = true;
+        });
+      },
+    );
+  }
+
+  Widget _buildGame(BuildContext context) {
+    if ( game == null ) {
+      return const Center(
+        child: Text("Loading..."),
+      );
+    }
+    return Container(
+      color: Colors.white,
+      constraints: const BoxConstraints.expand(),
+      child: Container(
+        child: game.widget,
+      )
     );
   }
 }
+
 
 class MyHomePage extends StatefulWidget {
   MyHomePage({Key key, this.title}) : super(key: key);

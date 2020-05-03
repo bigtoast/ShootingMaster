@@ -35,7 +35,7 @@ class _ShootingMasterGameWrapperState extends State<ShootingMasterGameWrapper> {
   }
 
   void startGame() {
-    Flame.images.loadAll(["basketball.png"]).then( (image) => {
+    Flame.images.loadAll(["bball.png"]).then( (image) => {
         setState(() {
           log("images loaded. starting game");
           game = new ShootingMasterGame(image[0]);
@@ -45,7 +45,8 @@ class _ShootingMasterGameWrapperState extends State<ShootingMasterGameWrapper> {
 
   @override
   Widget build(BuildContext context) {
-    return splashGone
+    return _buildGame(context);
+    /*return splashGone
         ? _buildGame(context)
         : FlameSplashScreen(
       theme: FlameSplashTheme.white,
@@ -55,17 +56,19 @@ class _ShootingMasterGameWrapperState extends State<ShootingMasterGameWrapper> {
           splashGone = true;
         });
       },
-    );
+    );*/
   }
 
   Widget _buildGame(BuildContext context) {
     if ( game == null ) {
+      log("game null.. loading");
       return const Center(
         child: Text("Loading..."),
       );
     }
+    log("returning container and game widget");
     return Container(
-      color: Colors.white,
+      color: Colors.blue,
       constraints: const BoxConstraints.expand(),
       child: Container(
         child: game.widget,

@@ -8,8 +8,8 @@ import 'package:flutter/material.dart';
 //import 'package:flame/flame.dart';
 
 class BBallConfig {
-  static double width = 55;
-  static double height = 55;
+  static double width = 550;
+  static double height = 550;
 }
 
 class BBall extends SpriteComponent {
@@ -20,10 +20,25 @@ class BBall extends SpriteComponent {
           BBallConfig.height,
           Sprite.fromImage(spriteImage, width: BBallConfig.width,
             height: BBallConfig.height,
-            x: 55,
-            y: 55
+            x: 550,
+            y: 550
           ));
 
+}
+
+class Tester extends Component {
+  @override
+  void render(Canvas c) {
+    var rect = Rect.fromLTWH(0, 0, 100, 100);
+    Paint paint = Paint();
+    paint.color = Color(0x550011);
+    c.drawRect(rect, paint);
+  }
+
+  @override
+  void update(double t) {
+    //log("update tester with ${t}");
+  }
 }
 
 class ShootingMasterGame extends BaseGame {
@@ -32,6 +47,6 @@ class ShootingMasterGame extends BaseGame {
   ShootingMasterGame(ui.Image image){
     this.bball = new BBall(spriteImage: image);
     log("adding bball");
-    this.add(bball);
+    this..add(bball)..add(new Tester());
   }
 }

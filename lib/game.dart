@@ -47,6 +47,12 @@ class ShootingMasterGame extends BaseGame {
   ShootingMasterGame(ui.Image image){
     this.bball = new BBall(spriteImage: image);
     log("adding bball");
-    this..add(bball)..add(new Tester());
+    //add(bball);
+    add(new Tester());
   }
+
+
+
+  //@override
+
 }
